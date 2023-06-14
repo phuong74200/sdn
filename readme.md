@@ -19,3 +19,4 @@ Server will run at: _http://localhost:5300_
 - Using [handlebars](https://handlebarsjs.com/)
 - Using [typescript](https://www.typescriptlang.org/)
 - Using [sass](https://sass-lang.com/)
+- Using [mongoose](https://mongoosejs.com/)
