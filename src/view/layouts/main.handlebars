@@ -1,12 +1,46 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SDN</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
-    <div class="container mx-auto">
-      {{{body}}}
+  <body class="dark:bg-gray-800 bg-gray-50">
+    <div class="min-h-full">
+      <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+
+              </div>
+              <div>
+                <div class="flex items-baseline space-x-4">
+                  <a
+                    href="#"
+                    class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    aria-current="page"
+                  >Nation</a>
+                  <a
+                    href="#"
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  >Players</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <header class="bg-transparent shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          {{{body}}}
+        </div>
+      </header>
+      <main>
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <!-- Your content -->
+        </div>
+      </main>
     </div>
   </body>
 </html>
