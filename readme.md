@@ -14,7 +14,7 @@ Server will run at: _http://localhost:5300_
 
 ## 3. Tech
 
-#### This boilderplate:
+#### This boilerplate:
 
 - Using [handlebars](https://handlebarsjs.com/)
 - Using [typescript](https://www.typescriptlang.org/)
