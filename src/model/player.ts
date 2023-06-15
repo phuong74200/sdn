@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+export interface Player {
+  name: string;
+  image: string;
+  club: string;
+  position: string;
+  goals: number;
+  isCaptain: boolean;
+}
+
 const playerSchema = new mongoose.Schema({
   name: String,
   image: String,
@@ -9,4 +18,7 @@ const playerSchema = new mongoose.Schema({
   isCaptain: Boolean,
 });
 
-export default mongoose.model("Player", playerSchema);
+export default mongoose.model<Player & mongoose.Document>(
+  "Player",
+  playerSchema
+);

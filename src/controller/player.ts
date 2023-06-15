@@ -1,38 +1,96 @@
-const express = require('express')
-const router = express.Router()
+import { Request, Response, Router } from "express";
+import { Player } from "../model/player";
+import { PlayerModel } from "../model";
 
-router.get('/', (_, res) => {
-  res.send('Player Router')
-})
+const router = Router();
 
-router.put('/', (_, res) => {
-  res.statusCode = 403
-  res.send('Operation not suppported.')
-})
+interface RequestParams {
+  playerId: string;
+}
 
-router.post('/', (_, res) => {
-  res.send('Updating')
-})
+const getView = async (req: Request<RequestParams>, res: Response) => {
+  const players = await PlayerModel.find({});
+  return res.render("players/list", { players });
+};
 
-router.delete('/', (_, res) => {
-  res.send('Deleting all players.')
-})
+const addView = async (req: Request<RequestParams>, res: Response) => {
+  return res.render("players/add");
+};
 
-router.get('/:playerId', (_, res) => {
-  res.send('Get a specific player')
-})
+const updateView = async (req: Request<RequestParams>, res: Response) => {
+  const id = req.params.playerId;
 
-router.put('/:playerId', (_, res) => {
-  res.statusCode = 403
-  res.send('Operation not suppported.')
-})
+  const player = await PlayerModel.findOne({ _id: id });
 
-router.post('/:playerId', (req, res) => {
-  res.send(`Updating player id ${req.params.playerId}`)
-})
+  const selection = [
+    {
+      content: "Goalkeeper",
+    },
+    {
+      content: "Right Full-back",
+    },
+    {
+      content: "Left Full-back",
+    },
+    {
+      content: "Center-back",
+    },
+    {
+      content: "Sweeper",
+    },
+    {
+      content: "Defensive Midfielder",
+    },
+    {
+      content: "Right Midfielder",
+    },
+    {
+      content: "Center Forward",
+    },
+    {
+      content: "Attacking Midfielder",
+    },
+  ].map((e) => ({
+    ...e,
+    selected: player.position === e.content,
+  }));
 
-router.delete('/:playerId', (req, res) => {
-  res.send(`Deleting player id ${req.params.playerId}`)
-})
+  return res.render("players/update", {
+    player,
+    selection,
+  });
+};
 
-module.exports = router
+const addApi = async (req: Request<{}, {}, Player>, res: Response) => {
+  console.log(req.body);
+
+  const player = new PlayerModel({
+    ...req.body,
+    isCaptain: String(req.body.isCaptain) === "on",
+  });
+  await player.save();
+  return res.redirect("/players");
+};
+
+const deleteApi = async (req: Request<RequestParams>, res: Response) => {
+  const id = req.params.playerId;
+
+  await PlayerModel.deleteOne({ _id: id });
+
+  return res.redirect("/players");
+};
+
+const updateApi = async (
+  req: Request<{}, {}, Player & { _id: string }>,
+  res: Response
+) => {
+  console.log(req.body);
+  await PlayerModel.findByIdAndUpdate(req.body._id, {
+    ...req.body,
+    isCaptain: String(req.body.isCaptain) === "on",
+  });
+
+  return res.redirect("/players");
+};
+
+export default { getView, addView, addApi, deleteApi, updateView, updateApi };
