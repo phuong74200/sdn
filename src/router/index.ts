@@ -6,3 +6,4 @@ export { default as registerRouter } from "./register";
 export { default as captainRouter } from "./captain";
 export { default as profileRouter } from "./profile";
 export { default as accountRouter } from "./account";
+export { default as oAuthRouter } from "./oauth";

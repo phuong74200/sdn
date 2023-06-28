@@ -6,6 +6,7 @@ export interface User {
   name: string;
   YOB: number;
   isAdmin: boolean;
+  googleId: string;
 }
 
 const userSchema = new mongoose.Schema({
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   YOB: { type: Number, required: true },
   isAdmin: { type: Boolean, required: true },
+  googleId: { type: String },
 });
 
 export default mongoose.model<User & mongoose.Document>("User", userSchema);

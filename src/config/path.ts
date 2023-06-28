@@ -54,7 +54,7 @@ export const hightlightPath = (path: string, paths: Path[]) => {
 export const getPaths = (user: User) => {
   const path = paths.map((p) => {
     if (p.path === "/profile") {
-      return { ...p, title: `Profile (${user.username})` };
+      return { ...p, title: `Profile (${user.name})` };
     }
     return p;
   });

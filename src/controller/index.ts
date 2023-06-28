@@ -6,3 +6,4 @@ export { default as registerController } from "./register";
 export { default as captainController } from "./captain";
 export { default as profileController } from "./profile";
 export { default as accountController } from "./account";
+export { default as oAuthController } from "./oauth";

@@ -8,6 +8,7 @@ import {
   captainRouter,
   loginRouter,
   nationRouter,
+  oAuthRouter,
   playerRouter,
   profileRouter,
   registerRouter,
@@ -27,7 +28,7 @@ app.use(
     proxy: true,
     resave: false,
     saveUninitialized: false,
-    // cookie: { maxAge: 6000, secure: false },
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, secure: false },
   })
 );
 app.use((req, res, next) => {
@@ -62,6 +63,7 @@ app.set("views", path.join(__dirname, "view"));
   app.use("/captain", captainRouter);
   app.use("/profile", profileRouter);
   app.use("/account", accountRouter);
+  app.use("/oauth", oAuthRouter);
 
   app.use("/", (req, res) => {
     res.redirect("/login");
