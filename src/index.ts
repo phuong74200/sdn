@@ -4,6 +4,7 @@ import { engine } from "express-handlebars";
 import mongoose from "mongoose";
 import path from "path";
 import {
+  accountRouter,
   captainRouter,
   loginRouter,
   nationRouter,
@@ -60,6 +61,7 @@ app.set("views", path.join(__dirname, "view"));
   app.use("/register", registerRouter);
   app.use("/captain", captainRouter);
   app.use("/profile", profileRouter);
+  app.use("/account", accountRouter);
 
   app.use("/", (req, res) => {
     res.redirect("/login");

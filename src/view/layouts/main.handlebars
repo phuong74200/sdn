@@ -11,25 +11,15 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
 
-            <div class="flex items-baseline space-x-4">
-              <a
-                href="/players"
-                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                aria-current="page"
-              >Players</a>
-              <a
-                href="/nations"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              >Nations</a>
+            <div class="flex items-baseline space-x-4 w-full">
+              {{#each path}}
+                <a
+                  href="{{this.path}}"
+                  class="{{this.className}}"
+                  aria-current="page"
+                >{{this.title}}</a>
+              {{/each}}
             </div>
-            <div class="flex items-baseline space-x-4">
-              <a
-                href="/profile"
-                class="hover:bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium"
-                aria-current="page"
-              >Profile ({{user.name}})</a>
-            </div>
-
           </div>
         </div>
       </nav>

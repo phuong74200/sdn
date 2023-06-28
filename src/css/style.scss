@@ -2,5 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+a[href="/profile"] {
+  margin-left: auto !important;
 }

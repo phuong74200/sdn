@@ -4,6 +4,7 @@ import { Player } from "../model/player";
 import { NationModel, PlayerModel } from "../model";
 import { DeleteNation, PostNationForm } from "../types/form";
 import { NATION_ADD_EXIST } from "../config/message";
+import { getPaths, hightlightPath } from "../config/path";
 
 const router = Router();
 
@@ -18,13 +19,16 @@ const getView = async (
   const nations = await NationModel.find({});
   return res.render("nations/list", {
     nations,
-    layout: "nation-layout",
+    path: hightlightPath("/nations", getPaths(req.user)),
     user: req.user,
   });
 };
 
 const addView = async (req: Request, res: Response) => {
-  return res.render("nations/add", { user: req.user });
+  return res.render("nations/add", {
+    user: req.user,
+    path: hightlightPath("/nations", getPaths(req.user)),
+  });
 };
 
 const updateView = async (req: DeleteNation, res: Response) => {
@@ -34,7 +38,7 @@ const updateView = async (req: DeleteNation, res: Response) => {
 
   return res.render("nations/update", {
     nation,
-    layout: "nation-layout",
+    path: hightlightPath("/nations", getPaths(req.user)),
     user: req.user,
   });
 };

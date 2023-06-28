@@ -9,6 +9,7 @@ import {
   PROFILE_UPDATE_SUCCESS,
 } from "../config/message";
 import { hashPassword, validatePassword } from "../utils/bcrypt";
+import { getPaths, hightlight, hightlightPath } from "../config/path";
 
 const router = Router();
 
@@ -24,7 +25,11 @@ const getView = async (req: Request, res: Response) => {
     selected: new Date().getFullYear() - 10 - i === user.YOB,
   }));
 
-  return res.render("profile/update", { user, years, layout: "profile-layout" });
+  return res.render("profile/update", {
+    user,
+    years,
+    path: hightlightPath("/profile", getPaths(req.user)),
+  });
 };
 
 const updateApi = async (req: PostProfileUpdate, res: Response) => {
