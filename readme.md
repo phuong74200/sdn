@@ -1,18 +1,25 @@
 ## 1. How to run
 
 ```
+touch .env
 yarn
 yarn dev
 ```
 
 Server will run at: _http://localhost:5300_
 
-## 2. Note
+## 2. Environment
+Don't forget to create .env file at root foler: ```touch .env```
+```
+BCRYPT_SALT: string
+PORT: number
+```
+## 3. Note
 
 - Frontend don't have hot reloading. So, reload the page your self
 - Don't touch the `src/public` folder if you don't know what you're doing
 
-## 3. Tech
+## 4. Tech
 
 #### This boilerplate:
 
@@ -21,7 +28,7 @@ Server will run at: _http://localhost:5300_
 - Using [sass](https://sass-lang.com/)
 - Using [mongoose](https://mongoosejs.com/)
 
-## 4. Known issues
+## 5. Known issues
 
 If you encountered this error:
 ```
@@ -32,6 +39,6 @@ or
 const stripAnsi = require('strip-ansi');
                   ^
 
-Error [ERR_REQUIRE_ESM]: require() of ES Module
+Error [ERR_REQUIRE_ESM]: require() of ES Module...
 ```
 just delete the yarn.lock file and run ```yarn install``` again
