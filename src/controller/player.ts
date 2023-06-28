@@ -64,6 +64,12 @@ const updateView = async (req: Request<RequestParams>, res: Response) => {
 const addApi = async (req: Request<{}, {}, Player>, res: Response) => {
   console.log(req.body);
 
+  if (req.body.goals < 0) return res.send("Invalid goal");
+
+  const isExist = await PlayerModel.findOne({ name: req.body.name });
+
+  if (isExist) return res.send("Player existed");
+
   const player = new PlayerModel({
     ...req.body,
     isCaptain: String(req.body.isCaptain) === "on",

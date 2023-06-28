@@ -51,8 +51,8 @@
                   class="px-6 py-4 whitespace-nowrap align-top text-right text-sm font-medium"
                 >
                   <a
-                    class="text-red-500 hover:text-red-700"
-                    href="/nations/api/delete/{{this._id}}"
+                    class="text-red-500 hover:text-red-700 cursor-pointer"
+                    onclick="remove('{{this._id}}')"
                   >Delete</a>
                 </td>
               </tr>
@@ -63,3 +63,7 @@
     </div>
   </div>
 </div>
+<script>
+  const remove = (id) => { let e = confirm("Are you sure you want to delete");
+  if(e){ location.href = `/nations/api/delete/${id}` } }
+</script>

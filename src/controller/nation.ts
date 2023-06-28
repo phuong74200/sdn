@@ -29,6 +29,10 @@ const updateView = async (req: Request<RequestParams>, res: Response) => {
 };
 
 const addApi = async (req: Request<{}, {}, Player>, res: Response) => {
+  const isExist = await NationModel.findOne({ name: req.body.name });
+
+  if (isExist) return res.send("Nation existed");
+
   const nation = new NationModel(req.body);
   await nation.save();
   return res.redirect("/nations");
