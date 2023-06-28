@@ -24,9 +24,9 @@ const post = async (req: Request<PostParams>, res: Response) => {
     username: username,
   });
 
-  console.log(req.session.login);
+  console.log(req.session.user)
 
-  req.session.login = "asdasdadxxx";
+  req.session.user = user
 
   if (!user) {
     await req.session.save();

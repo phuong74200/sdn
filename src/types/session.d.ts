@@ -3,6 +3,6 @@ import { User } from "../model/user";
 
 declare module "express-session" {
   export interface SessionData {
-    login: string
+    user: User | null;
   }
 }
