@@ -25,3 +25,7 @@ dist-ssr
 
 # Lock files
 *.lock
+
+# env
+
+*.env
