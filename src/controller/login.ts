@@ -24,11 +24,13 @@ const post = async (req: Request<PostParams>, res: Response) => {
     username: username,
   });
 
+  console.log(req.session.login);
+
+  req.session.login = "asdasdadxxx";
+
   if (!user) {
-    req.session.login = {
-      user: user,
-    };
-    return res.redirect("/login");
+    await req.session.save();
+    res.redirect('/login');
   }
 
   return res.redirect("/login");
