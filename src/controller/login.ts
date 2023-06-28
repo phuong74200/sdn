@@ -1,6 +1,8 @@
 import { Request, Response, Router } from "express";
 import { hashPassword, validatePassword } from "../utils/bcrypt";
 import { UserModel } from "../model";
+import { LOGIN_FAILED } from "../config/message";
+import passport from "passport";
 
 const router = Router();
 
@@ -17,23 +19,21 @@ interface PostParams {
   password: string;
 }
 
-const post = async (req: Request<PostParams>, res: Response) => {
-  const { username, password } = req.body;
+const post = async (req: Request<PostParams>, res: Response, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
 
-  const user = await UserModel.findOne({
-    username: username,
-  });
+    if (!user) {
+      return res.send("Error");
+    }
 
-  console.log(req.session.user)
+    req.logIn(user, (err) => {
+      if (err) return next(err);
 
-  req.session.user = user
-
-  if (!user) {
-    await req.session.save();
-    res.redirect('/login');
-  }
-
-  return res.redirect("/login");
+      // Redirect or send a response indicating successful login
+      res.send("success");
+    });
+  })(req, res, next);
 };
 
 export default { getView, post };

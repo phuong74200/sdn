@@ -67,6 +67,13 @@
               required=""
             />
           </div>
+          <div>
+            {{#if session.REGISTER_ERROR}}
+              <h2
+                class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              >{{session.REGISTER_ERROR}}</h2>
+            {{/if}}
+          </div>
           <div class="flex items-start">
             <div class="flex items-center h-5">
               <input
@@ -95,7 +102,7 @@
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
             Already have an account?
             <a
-              href="#"
+              href="/login"
               class="font-medium text-primary-600 hover:underline dark:text-primary-500"
             >Login here</a>
           </p>

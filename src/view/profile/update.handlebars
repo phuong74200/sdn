@@ -1,0 +1,102 @@
+<section class="dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update your
+      profile</h2>
+    <form action="/profile/api/update" method="post">
+      <input name="_id" type="hidden" value="{{user._id}}" />
+      <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div class="sm:col-span-2">
+          <label
+            for="name"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Display name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Your display name"
+            required=""
+            value="{{user.name}}"
+          />
+        </div>
+        <div>
+          <label
+            for="category"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Year of birth</label>
+          <select
+            name="YOB"
+            id="category"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            {{#each years}}
+              {{#if this.selected}}
+                <option
+                  value="{{this.content}}"
+                  selected
+                >{{this.content}}</option>
+              {{else}}
+                <option value="{{this.content}}">{{this.content}}</option>
+              {{/if}}
+            {{/each}}
+          </select>
+        </div>
+        <div>
+          <label
+            for="item-weight"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Old Password</label>
+          <input
+            name="oldPassword"
+            type="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="••••••••"
+          />
+        </div>
+        <div>
+          <label
+            for="item-weight"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >New Password</label>
+          <input
+            name="newPassword"
+            type="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="••••••••"
+          />
+        </div>
+        <div>
+          <label
+            for="item-weight"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Confirm New Password</label>
+          <input
+            name="confirmPassword"
+            type="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="••••••••"
+          />
+        </div>
+        <div class="sm:col-span-2">
+          {{#if session.PROFILE_UPDATE_ERROR}}
+            <h2
+              class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            >{{session.PROFILE_UPDATE_ERROR}}</h2>
+          {{/if}}
+          {{#if session.PROFILE_UPDATE_SUCCESS}}
+            <h2
+              class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            >{{session.PROFILE_UPDATE_SUCCESS}}</h2>
+          {{/if}}
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-blue-700"
+      >
+        Update
+      </button>
+    </form>
+  </div>
+</section>

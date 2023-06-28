@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Player } from "../model/player";
-import { PlayerModel } from "../model";
+import { NationModel, PlayerModel } from "../model";
+import { DeletePlayer } from "../types/form";
 
 const router = Router();
 
@@ -8,16 +9,18 @@ interface RequestParams {
   playerId: string;
 }
 
-const getView = async (req: Request<RequestParams>, res: Response) => {
-  const players = await PlayerModel.find({});
-  return res.render("players/list", { players });
+const getView = async (req, res: Response) => {
+  const players = await PlayerModel.find({}).populate("nation").exec();
+  return res.render("players/list", { players, user: req.user });
 };
 
-const addView = async (req: Request<RequestParams>, res: Response) => {
-  return res.render("players/add");
+const addView = async (req: Request, res: Response) => {
+  const nation = await NationModel.find({});
+
+  return res.render("players/add", { nation, user: req.user });
 };
 
-const updateView = async (req: Request<RequestParams>, res: Response) => {
+const updateView = async (req: DeletePlayer, res: Response) => {
   const id = req.params.playerId;
 
   const player = await PlayerModel.findOne({ _id: id });
@@ -58,6 +61,7 @@ const updateView = async (req: Request<RequestParams>, res: Response) => {
   return res.render("players/update", {
     player,
     selection,
+    user: req.user,
   });
 };
 
@@ -78,7 +82,7 @@ const addApi = async (req: Request<{}, {}, Player>, res: Response) => {
   return res.redirect("/players");
 };
 
-const deleteApi = async (req: Request<RequestParams>, res: Response) => {
+const deleteApi = async (req: DeletePlayer, res: Response) => {
   const id = req.params.playerId;
 
   await PlayerModel.deleteOne({ _id: id });

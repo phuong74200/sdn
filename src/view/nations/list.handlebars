@@ -16,45 +16,42 @@
                 scope="col"
                 class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase"
               >Name</th>
-              <th
-                scope="col"
-                class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase"
-              >Description</th>
-              <th
-                scope="col"
-                class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase"
-              >Update</th>
-              <th
-                scope="col"
-                class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase"
-              >Delete</th>
+              {{#if user.isAdmin}}
+                <th
+                  scope="col"
+                  class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase"
+                >Update</th>
+                <th
+                  scope="col"
+                  class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase"
+                >Delete</th>
+              {{/if}}
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
             {{#each nations}}
               <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td
-                  class="px-6 py-4 whitespace-nowrap align-top text-sm font-medium text-gray-800 dark:text-gray-200"
+                  class="w-full px-6 py-4 whitespace-nowrap align-top text-sm font-medium text-gray-800 dark:text-gray-200"
                 >{{this.name}}</td>
-                <td
-                  class="px-6 py-4 whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-200"
-                >{{this.description}}</td>
-                <td
-                  class="px-6 py-4 whitespace-nowrap align-top text-center text-sm font-medium"
-                >
-                  <a
-                    class="text-blue-500 hover:text-blue-700"
-                    href="/nations/update/{{this._id}}"
-                  >Update</a>
-                </td>
-                <td
-                  class="px-6 py-4 whitespace-nowrap align-top text-right text-sm font-medium"
-                >
-                  <a
-                    class="text-red-500 hover:text-red-700 cursor-pointer"
-                    onclick="remove('{{this._id}}')"
-                  >Delete</a>
-                </td>
+                {{#if ../user.isAdmin}}
+                  <td
+                    class="w-0 px-6 py-4 whitespace-nowrap align-top text-center text-sm font-medium"
+                  >
+                    <a
+                      class="text-blue-500 hover:text-blue-700"
+                      href="/nations/update/{{this._id}}"
+                    >Update</a>
+                  </td>
+                  <td
+                    class="w-0 px-6 py-4 whitespace-nowrap align-top text-right text-sm font-medium"
+                  >
+                    <a
+                      class="text-red-500 hover:text-red-700 cursor-pointer"
+                      onclick="remove('{{this._id}}', '{{this.name}}')"
+                    >Delete</a>
+                  </td>
+                {{/if}}
               </tr>
             {{/each}}
           </tbody>
@@ -64,6 +61,6 @@
   </div>
 </div>
 <script>
-  const remove = (id) => { let e = confirm("Are you sure you want to delete");
-  if(e){ location.href = `/nations/api/delete/${id}` } }
+  const remove = (id, name) => {let e = confirm("Are you sure you want to " +
+  "delete " + name); if(e){ location.href = `/nations/api/delete/${id}` } }
 </script>

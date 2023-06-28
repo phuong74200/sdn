@@ -1,20 +1,27 @@
 import mongoose from "mongoose";
+import { Nation } from "./nations";
 
 export interface Player {
   name: string;
   image: string;
-  club: string;
+  career: string;
   position: string;
   goals: number;
+  nation: Nation;
   isCaptain: boolean;
 }
 
 const playerSchema = new mongoose.Schema({
   name: String,
   image: String,
-  club: String,
   position: String,
+  career: String,
   goals: Number,
+  nation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Nation",
+    require: true,
+  },
   isCaptain: Boolean,
 });
 

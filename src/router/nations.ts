@@ -1,14 +1,16 @@
-import { Request, Response, Router } from "express";
-import { nationController, playerController } from "../controller";
+import { Router } from "express";
+import { nationController } from "../controller";
+import isUser from "../middleware/isUser";
+import isAdmin from "../middleware/isAdmin";
 
 const router = Router();
 
-router.get("/", nationController.getView);
-router.get("/add", nationController.addView);
+router.get("/", isUser, nationController.getView);
+router.get("/add", isAdmin, nationController.addView);
 
-router.post("/api/add", nationController.addApi);
-router.get("/api/delete/:nationId", nationController.deleteApi);
-router.post("/api/update", nationController.updateApi);
-router.get("/update/:nationId", nationController.updateView);
+router.post("/api/add", isAdmin, nationController.addApi);
+router.get("/api/delete/:nationId", isAdmin, nationController.deleteApi);
+router.post("/api/update", isAdmin, nationController.updateApi);
+router.get("/update/:nationId", isAdmin, nationController.updateView);
 
 export default router;

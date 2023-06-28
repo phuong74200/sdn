@@ -27,7 +27,7 @@
             <label
               for="email"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Username {{session.user.username}}</label>
+            >Username</label>
             <input
               type="text"
               pattern="[A-Za-z0-9\-]+"
@@ -53,6 +53,13 @@
               required=""
             />
           </div>
+
+          {{#if session.error}}
+            <h2
+              class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            >{{session.error}}</h2>
+          {{/if}}
+
           <div class="flex items-center justify-between">
             <div class="flex items-start">
               <div class="flex items-center h-5">
@@ -60,6 +67,7 @@
                   id="remember"
                   aria-describedby="remember"
                   type="checkbox"
+                  name="remember"
                   class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                 />
               </div>
@@ -82,7 +90,7 @@
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
             Don’t have an account yet?
             <a
-              href="#"
+              href="/register"
               class="font-medium text-primary-600 hover:underline dark:text-primary-500"
             >Sign up</a>
           </p>

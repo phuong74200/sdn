@@ -4,15 +4,19 @@ import { engine } from "express-handlebars";
 import mongoose from "mongoose";
 import path from "path";
 import {
+  captainRouter,
   loginRouter,
   nationRouter,
   playerRouter,
+  profileRouter,
   registerRouter,
 } from "./router";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { env } from "./config/env";
 
 import session from "express-session";
+import passport from "passport";
+import passportStrategy from "./config/passport";
 
 const app = express();
 
@@ -22,11 +26,20 @@ app.use(
     proxy: true,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000, secure: false },
+    // cookie: { maxAge: 6000, secure: false },
   })
 );
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passportStrategy(passport);
+
 app.engine(
   "handlebars",
   engine({
@@ -45,6 +58,8 @@ app.set("views", path.join(__dirname, "view"));
   app.use("/nations", nationRouter);
   app.use("/login", loginRouter);
   app.use("/register", registerRouter);
+  app.use("/captain", captainRouter);
+  app.use("/profile", profileRouter);
 
   app.use("/", (req, res) => {
     res.redirect("/login");
